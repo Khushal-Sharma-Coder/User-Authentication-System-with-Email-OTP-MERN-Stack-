@@ -1,0 +1,173 @@
+body {
+  margin: 0;
+  background: #000;
+  font-family: Arial, sans-serif;
+}
+
+.auth-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* box */
+/*.auth-box {
+  width: 320px;
+  text-align: center;
+}*/
+/* box */
+.auth-box {
+  width: 90px;
+  width: 360px;
+  background: #1a1a1a;
+  padding: 35px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 0 20px rgba(244, 208, 63, 0.25);
+}
+
+.auth-box.register-scroll {
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* title */
+.title {
+  color: #f4d03f;
+  margin-bottom: 25px;
+  font-size: 26px;
+}
+
+/* inputs */
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 12px;
+  border-radius: 5px;
+  border: none;
+  background: #eee;
+  box-sizing: border-box;
+}
+
+/* button (SMALL like screenshot) */
+.btn {
+  background: #f4d03f;
+  color: black;
+  border: none;
+  padding: 10px;
+  width: 120px;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+/* text */
+.text {
+  color: #ccc;
+  margin-top: 15px;
+}
+
+span {
+  color: #f4d03f;
+  cursor: pointer;
+}
+
+/* forgot */
+.link {
+  color: #f4d03f;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+/* ================= DASHBOARD ================= */
+
+.dashboard-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #000;
+}
+
+.dashboard-card {
+  width: 100%;
+  max-width: 500px;
+  background: #1a1a1a;
+  border: 2px solid #f4d03f;
+  border-radius: 18px;
+  padding: 35px;
+  box-shadow: 0 0 30px rgba(244,208,63,0.25);
+  text-align: center;
+  box-sizing: border-box;
+  margin: 0 20px;
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #f4d03f;
+  color: black;
+  font-size: 48px;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 20px;
+  box-shadow: 0 0 20px rgba(244,208,63,0.5);
+}
+
+.dashboard-title {
+  color: #f4d03f;
+  margin-bottom: 5px;
+}
+
+.dashboard-name {
+  color: white;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.verified {
+  color: #2ecc71;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.info {
+  margin-top: 20px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  padding: 12px 0;
+  border-bottom: 1px solid #333;
+}
+
+.info-row span {
+  color: #f4d03f;
+}
+
+.security-box {
+  margin-top: 25px;
+  color: white;
+}
+
+.security-box h3 {
+  color: #f4d03f;
+}
+
+.security-box p {
+  margin: 8px 0;
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
