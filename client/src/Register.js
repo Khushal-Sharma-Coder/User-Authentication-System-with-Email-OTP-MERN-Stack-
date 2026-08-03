@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "./config";
 
 function Register({ setPage, setEmail}) {
   const [formData, setFormData] = useState({
@@ -22,7 +23,7 @@ function Register({ setPage, setEmail}) {
   const registerUser = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/register",
+        `${BASE_URL}/register`,
         formData
       );
 

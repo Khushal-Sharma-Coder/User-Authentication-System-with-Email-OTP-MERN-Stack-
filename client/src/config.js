@@ -1,0 +1,1 @@
+export const BASE_URL = "https://user-authentication-system-with-email.onrender.com/api/auth";

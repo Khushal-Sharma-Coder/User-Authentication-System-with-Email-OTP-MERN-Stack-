@@ -1,22 +1,14 @@
 import { useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "./config";
 
 function VerifyOtp({ email, setPage, setUser }) {
-  //const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-
-  /* Automatically fill email
-  useEffect(() => {
-    const savedEmail = localStorage.getItem("email");
-    if (savedEmail) {
-      setEmail(savedEmail);
-    }
-  }, []);*/
 
   const verifyOtp = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/verify-otp",
+        `${BASE_URL}/verify-otp`,
         {
           email,
           otp,
@@ -27,9 +19,6 @@ function VerifyOtp({ email, setPage, setUser }) {
 
       // Save user details
       setUser(res.data.user);
-
-      // Clear saved email
-      //localStorage.removeItem("email");
 
       // Open dashboard
       setPage("dashboard");
@@ -42,7 +31,7 @@ function VerifyOtp({ email, setPage, setUser }) {
   const resendOtp = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/resend-otp",
+        `${BASE_URL}/resend-otp`,
         { email }
       );
 

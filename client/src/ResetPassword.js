@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { BASE_URL } from "./config";
 
 function ResetPassword({ setPage, email }) {
   const [otp, setOtp] = useState("");
@@ -14,7 +15,7 @@ function ResetPassword({ setPage, email }) {
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/api/auth/reset-password",
+        `${BASE_URL}/reset-password`,
         {
           email,
           otp,
