@@ -55,13 +55,26 @@ router.post("/register", async (req, res) => {
       isVerified: false
     });
 
-    await sendEmail(email, "Your OTP Code", `Your OTP is ${otp}`);
+    try {
+      await sendEmail(email, "Your OTP Code", `Your OTP is ${otp}`);
+    } catch (emailErr) {
+      console.log("EMAIL SEND FAILED:", emailErr.message);
+      return res.status(201).json({
+        message: "Registered, but the OTP email failed to send. Please use Resend OTP on the next screen."
+      });
+    }
 
     res.status(201).json({
       message: "User registered. OTP sent to email"
     });
 
   } catch (err) {
+    if (err.code === 11000) {
+      return res.status(400).json({
+        message: "An account with this email is already being registered. Please wait a moment and try again, or check your email for an existing OTP."
+      });
+    }
+
     res.status(500).json({ message: err.message });
   }
 });
@@ -148,7 +161,7 @@ router.post("/test-email", async (req, res) => {
     res.json({ message: "Email sent successfully" });
 
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: "Email failed: " + err.message });
   }
 });
 
@@ -215,7 +228,12 @@ router.post("/forgot-password", async (req, res) => {
 
     await user.save();
 
-    await sendEmail(email, "Password Reset OTP", `Your OTP is ${otp}`);
+    try {
+      await sendEmail(email, "Password Reset OTP", `Your OTP is ${otp}`);
+    } catch (emailErr) {
+      console.log("EMAIL SEND FAILED:", emailErr.message);
+      return res.status(500).json({ message: "Failed to send OTP email. Please try again." });
+    }
 
     res.json({ message: "OTP sent to email" });
 
@@ -282,7 +300,12 @@ router.post("/resend-otp", async (req, res) => {
 
     await user.save();
 
-    await sendEmail(email, "Resend OTP", `Your new OTP is ${otp}`);
+    try {
+      await sendEmail(email, "Resend OTP", `Your new OTP is ${otp}`);
+    } catch (emailErr) {
+      console.log("EMAIL SEND FAILED:", emailErr.message);
+      return res.status(500).json({ message: "Failed to resend OTP email. Please try again." });
+    }
 
     res.json({ message: "OTP resent successfully" });
 
