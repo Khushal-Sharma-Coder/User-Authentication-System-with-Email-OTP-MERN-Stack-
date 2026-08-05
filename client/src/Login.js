@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { BASE_URL } from "./config";
 
-function Login({ setPage, setUser }) {
+function Login({ setPage, setUser, setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -18,8 +18,9 @@ function Login({ setPage, setUser }) {
 
       alert(res.data.message);
 
-      // Save logged in user
+      // Save logged in user + token
       setUser(res.data.user);
+      setToken(res.data.token);
 
       // Open dashboard
       setPage("dashboard");

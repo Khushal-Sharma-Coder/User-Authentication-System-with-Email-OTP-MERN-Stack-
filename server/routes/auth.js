@@ -147,6 +147,48 @@ router.get("/profile", authMiddleware, async (req, res) => {
 });
 
 
+// ================= UPDATE PROFILE =================
+router.put("/update-profile", authMiddleware, async (req, res) => {
+  try {
+    const { fullName, mobile, gender, state, pinCode } = req.body;
+
+    if (!fullName || !mobile) {
+      return res.status(400).json({ message: "Full name and mobile are required" });
+    }
+
+    const user = await User.findById(req.user.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    user.fullName = fullName;
+    user.mobile = mobile;
+    user.gender = gender;
+    user.state = state;
+    user.pinCode = pinCode;
+
+    await user.save();
+
+    res.json({
+      message: "Profile updated successfully",
+      user: {
+        fullName: user.fullName,
+        email: user.email,
+        mobile: user.mobile,
+        gender: user.gender,
+        state: user.state,
+        pinCode: user.pinCode,
+        createdAt: user.createdAt
+      }
+    });
+
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+
 // ================= TEST EMAIL =================
 router.post("/test-email", async (req, res) => {
   try {
