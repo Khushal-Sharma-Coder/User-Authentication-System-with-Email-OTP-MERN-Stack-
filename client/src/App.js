@@ -11,6 +11,7 @@ function App() {
   const [page, setPage] = useState("login");
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState("");
+  const [token, setToken] = useState("");
 
   return (
   <div className="auth-wrapper">
@@ -19,6 +20,7 @@ function App() {
       <Login
         setPage={setPage}
         setUser={setUser}
+        setToken={setToken}
       />
     )}
 
@@ -40,6 +42,7 @@ function App() {
     {page === "dashboard" && (
       <Dashboard
         user={user}
+        token={token}
         setPage={setPage}
       />
     )}
