@@ -13,6 +13,12 @@ function App() {
   const [email, setEmail] = useState("");
   const [token, setToken] = useState("");
 
+  const handleLogout = () => {
+    setUser(null);
+    setToken("");
+    setPage("login");
+  };
+
   return (
   <div className="auth-wrapper">
 
@@ -42,7 +48,9 @@ function App() {
     {page === "dashboard" && (
       <Dashboard
         user={user}
+        setUser={setUser}
         token={token}
+        onLogout={handleLogout}
         setPage={setPage}
       />
     )}
