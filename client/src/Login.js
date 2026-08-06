@@ -5,22 +5,30 @@ import { BASE_URL } from "./config";
 function Login({ setPage, setUser, setToken }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  const handleEmailChange = (e) => setEmail(e.target.value);
+  const handlePasswordChange = (e) => setPassword(e.target.value);
 
   const loginUser = async () => {
-    try {
-      const res = await axios.post(
-        `${BASE_URL}/login`,
-        {
-          email,
-          password
-        }
-      );
+    const trimmedEmail = email.trim();
+    const trimmedPassword = password.trim();
 
-      // Save logged in user + token
+    if (!trimmedEmail || !trimmedPassword) {
+      alert("Please enter both email and password");
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await axios.post(`${BASE_URL}/login`, {
+        email: trimmedEmail,
+        password: trimmedPassword
+      });
+
       setUser(res.data.user);
       setToken(res.data.token);
-
-      // Open dashboard
       setPage("dashboard");
 
       alert(res.data.message);
@@ -28,6 +36,8 @@ function Login({ setPage, setUser, setToken }) {
     } catch (err) {
       console.error("Login error:", err);
       alert(err.response?.data?.message || "Login failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -38,22 +48,30 @@ function Login({ setPage, setUser, setToken }) {
 
       <input
         className="input"
+        type="email"
         placeholder="Enter Email"
-        onChange={(e) => setEmail(e.target.value)}
+        value={email}
+        onChange={handleEmailChange}
+        onInput={handleEmailChange}
+        autoComplete="email"
       />
 
       <input
         className="input"
         type="password"
         placeholder="Enter Password"
-        onChange={(e) => setPassword(e.target.value)}
+        value={password}
+        onChange={handlePasswordChange}
+        onInput={handlePasswordChange}
+        autoComplete="current-password"
       />
 
       <button
         className="btn"
         onClick={loginUser}
+        disabled={loading}
       >
-        LOGIN
+        {loading ? "Logging in..." : "LOGIN"}
       </button>
 
       <p className="text">
@@ -64,11 +82,11 @@ function Login({ setPage, setUser, setToken }) {
       </p>
 
       <p
-  className="link"
-  onClick={() => setPage("forgotPassword")}
->
-  Forgot Password?
-</p>
+        className="link"
+        onClick={() => setPage("forgotPassword")}
+      >
+        Forgot Password?
+      </p>
 
     </div>
   );
