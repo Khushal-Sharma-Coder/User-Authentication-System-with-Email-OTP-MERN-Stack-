@@ -16,8 +16,6 @@ function Login({ setPage, setUser, setToken }) {
         }
       );
 
-      alert(res.data.message);
-
       // Save logged in user + token
       setUser(res.data.user);
       setToken(res.data.token);
@@ -25,7 +23,10 @@ function Login({ setPage, setUser, setToken }) {
       // Open dashboard
       setPage("dashboard");
 
+      alert(res.data.message);
+
     } catch (err) {
+      console.error("Login error:", err);
       alert(err.response?.data?.message || "Login failed");
     }
   };
